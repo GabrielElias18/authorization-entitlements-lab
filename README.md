@@ -1,5 +1,7 @@
 # Fine Grain Entitlements Lab: Authorization Architecture Comparison
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## 🎯 Project Focus: Authorization System Patterns
 
 This project implements and compares different authorization architectures using practical side-by-side comparison of typical access control use cases, focusing on:
