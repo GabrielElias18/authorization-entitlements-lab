@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package entitlement.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "entitlement-service/proto";
+
+// Main entitlement service
+service EntitlementService {
+  // Single permission check
+  rpc CheckPermission(PermissionRequest) returns (PermissionResponse);
+  
+  // Bulk permission checks with concurrent processing
+  rpc CheckBulkPermissions(BulkPermissionRequest) returns (BulkPermissionResponse);
+  
+  // Streaming permission checks for real-time updates
+  rpc StreamPermissionChecks(stream PermissionRequest) returns (stream PermissionResponse);
+  
+  // Health check
+  rpc Health(HealthRequest) returns (HealthResponse);
+  
+  // Performance benchmark
+  rpc Benchmark(BenchmarkRequest) returns (BenchmarkResponse);
+}
+
+// Request for a single permission check
+message PermissionRequest {
+  string actor = 1;           // Generalized actor (user, service, etc.)
+  string resource = 2;        // Generalized resource (account, document, etc.)
+  string permission = 3;      // Action to check (read, write, delete, etc.)
+  map<string, string> context = 4;  // Additional context (time, location, etc.)
+}
+
+// Response for a single permission check
+message PermissionResponse {
+  bool has_permission = 1;
+  int32 permissionship = 2;
+  Implementation implementation = 3;
+  google.protobuf.Timestamp timestamp = 4;
+  double response_time_ms = 5;
+  string error_message = 6;
+}
+
+// Request for bulk permission checks
+message BulkPermissionRequest {
+  repeated PermissionRequest requests = 1;
+  int32 max_concurrency = 2;
+}
+
+// Response for bulk permission checks
+message BulkPermissionResponse {
+  repeated PermissionResponse responses = 1;
+  double total_time_ms = 2;
+  int32 success_count = 3;
+  int32 error_count = 4;
+}
+
+// Health check request
+message HealthRequest {
+  Implementation implementation = 1;
+}
+
+// Health check response
+message HealthResponse {
+  bool healthy = 1;
+  Implementation implementation = 2;
+  string status_message = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+// Benchmark request
+message BenchmarkRequest {
+  repeated TestCase test_cases = 1;
+  int32 iterations = 2;
+  int32 concurrency = 3;
+  Implementation implementation = 4;
+}
+
+// Benchmark response
+message BenchmarkResponse {
+  repeated BenchmarkResult results = 1;
+  BenchmarkSummary summary = 2;
+}
+
+// Individual test case for benchmarking
+message TestCase {
+  string name = 1;
+  string actor = 2;           // Generalized actor
+  string resource = 3;        // Generalized resource
+  string permission = 4;
+  map<string, string> context = 5;
+  bool expected_result = 6;
+}
+
+// Result for a single benchmark test
+message BenchmarkResult {
+  string test_name = 1;
+  bool success = 2;
+  double avg_response_time_ms = 3;
+  double min_response_time_ms = 4;
+  double max_response_time_ms = 5;
+  double p95_response_time_ms = 6;
+  double p99_response_time_ms = 7;
+  int32 total_requests = 8;
+  int32 successful_requests = 9;
+  int32 failed_requests = 10;
+  Implementation implementation = 11;
+}
+
+// Summary of benchmark results
+message BenchmarkSummary {
+  double total_time_ms = 1;
+  int32 total_requests = 2;
+  double avg_response_time_ms = 3;
+  double throughput_rps = 4;
+  Implementation implementation = 5;
+  repeated string errors = 6;
+}
+
+// Implementation type for comparison
+enum Implementation {
+  IMPLEMENTATION_UNSPECIFIED = 0;
+  IMPLEMENTATION_SPICEDB = 1;
+  IMPLEMENTATION_NEO4J = 2;
+  IMPLEMENTATION_GRAPHQL = 3;
+  IMPLEMENTATION_BOTH = 4;
+}
+
+// Permissionship values (matching SpiceDB)
+enum Permissionship {
+  PERMISSIONSHIP_UNSPECIFIED = 0;
+  PERMISSIONSHIP_NO_PERMISSION = 1;
+  PERMISSIONSHIP_HAS_PERMISSION = 2;
+  PERMISSIONSHIP_CONDITIONAL_PERMISSION = 3;
+} 

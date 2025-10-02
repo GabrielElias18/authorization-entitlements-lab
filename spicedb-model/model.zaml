@@ -1,0 +1,41 @@
+caveat within_active_range(start timestamp, end timestamp, now timestamp) {
+  now >= start && now <= end
+}
+
+caveat under_limit(max_amount int, amount int) {
+  amount <= max_amount
+}
+
+caveat within_time_and_limit(max_amount int, amount int, start timestamp, end timestamp, now timestamp) {
+  amount <= max_amount && now >= start && now <= end
+}
+
+definition user {}
+
+definition org {
+  relation member: user | role
+  permission can_access = member + member->member
+}
+
+definition role {
+  relation member: user
+}
+
+definition account {
+  relation owner: user | org
+  relation delegated_access: poa
+  relation accountant_access: user with within_active_range
+  permission can_access = owner + owner->can_access
+  permission can_view_transactions = owner + owner->can_access + delegated_access->can_view_transactions + accountant_access
+  permission can_download_statement = owner + owner->can_access + delegated_access->can_download_statement + accountant_access
+  permission can_initiate_payment = owner + owner->can_access + delegated_access->can_initiate_payment
+}
+
+definition poa {
+  relation delegate_with_limit: user with under_limit
+  relation delegate_with_time: user with within_active_range
+  relation delegate_with_time_and_limit: user with within_time_and_limit
+  permission can_view_transactions = delegate_with_limit + delegate_with_time + delegate_with_time_and_limit
+  permission can_download_statement = delegate_with_limit + delegate_with_time + delegate_with_time_and_limit
+  permission can_initiate_payment = delegate_with_limit + delegate_with_time + delegate_with_time_and_limit
+} 

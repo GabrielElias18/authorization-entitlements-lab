@@ -1,0 +1,66 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  roles: [Role!]!
+  orgs: [Organization!]!
+}
+
+type Organization {
+  id: ID!
+  name: String!
+  members: [User!]!
+  roles: [Role!]!
+  accounts: [Account!]!
+}
+
+type Role {
+  id: ID!
+  name: String!
+  members: [User!]!
+  org: Organization
+}
+
+type Account {
+  id: ID!
+  ownerUser: User
+  ownerOrg: Organization
+  delegates: [User!]!
+  poas: [POA!]!
+  balance: Float!
+}
+
+type POA {
+  id: ID!
+  account: Account!
+  delegate: User!
+  validFrom: String!
+  validTo: String!
+  maxAmount: Float
+}
+
+type Statement {
+  id: ID!
+  account: Account!
+  content: String!
+}
+
+type Payment {
+  id: ID!
+  from: Account!
+  to: Account!
+  amount: Float!
+  initiatedBy: User!
+  status: String!
+}
+
+type Query {
+  me: User
+  account(id: ID!): Account
+  statement(id: ID!): Statement
+  canInitiatePayment(accountId: ID!, amount: Float!): Boolean!
+  canDownloadStatement(accountId: ID!): Boolean!
+  canViewTransactions(accountId: ID!): Boolean!
+  canAccess(accountId: ID!): Boolean!
+  # Add more queries as needed
+} 

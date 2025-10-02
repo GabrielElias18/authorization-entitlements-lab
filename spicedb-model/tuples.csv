@@ -1,0 +1,12 @@
+resource,relation,subject,caveat
+account:acc123,owner,user:david,
+account:acc456,owner,user:emma,
+account:acc123,delegated_access,poa:poa1,
+poa:poa1,delegate_with_time_and_limit,user:emma,within_time_and_limit:{"max_amount":5000,"start":"2025-01-01T00:00:00Z","end":"2025-06-30T23:59:59Z"}
+account:acc456,accountant_access,user:adi,within_active_range:{"start":"2025-01-01T00:00:00Z","end":"2025-03-31T23:59:59Z"}
+account:acc789,owner,org:abc,
+account:acc790,owner,org:abc,
+account:acc791,owner,org:abc,
+account:acc792,owner,org:abc,
+role:finance_ops,member,user:alice,
+org:abc,member,role:finance_ops,

@@ -1,0 +1,20 @@
+{
+  "name": "graphdb-model",
+  "version": "1.0.0",
+  "description": "This module implements a real-world entitlement system using Neo4j, modeled for a financial sector use case.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-permissions": "node --no-deprecation --no-warnings --loader ts-node/esm check-permission.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^20.0.0",
+    "neo4j-driver": "^5.15.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  }
+}

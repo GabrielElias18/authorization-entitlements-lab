@@ -1,0 +1,36 @@
+{
+  "name": "graphql-entitlement",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "GraphQL entitlement service with PostgreSQL backend for fine-grained access control benchmarking.",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "ts-node src/server.ts",
+        "build": "tsc"
+  },
+  "prisma": {
+    "seed": "ts-node --esm prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "apollo-server": "^3.12.0",
+    "graphql": "^16.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "nodemon": "^3.0.0",
+    "prisma": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "graphql",
+    "entitlements",
+    "postgresql",
+    "prisma",
+    "apollo-server"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

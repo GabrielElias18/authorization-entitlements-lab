@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// This Prisma schema models the financial sector entitlement use cases
+// for fair comparison with SpiceDB and Neo4j approaches.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id      String   @id @default(uuid())
+  name    String
+  members User[]   @relation("OrgMembers")
+  roles   Role[]   @relation("OrgRoles")
+  accounts Account[] @relation("OrgAccounts")
+  createdAt DateTime @default(now())
+}
+
+model Role {
+  id      String   @id @default(uuid())
+  name    String
+  members User[]   @relation("RoleMembers")
+  org     Organization? @relation("OrgRoles", fields: [orgId], references: [id])
+  orgId   String?
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  roles     Role[]    @relation("RoleMembers")
+  orgs      Organization[] @relation("OrgMembers")
+  accounts  Account[] @relation("AccountOwner")
+  delegates Account[] @relation("AccountDelegates")
+  payments  Payment[] @relation("InitiatedPayments")
+  poas      POA[]     @relation("UserPOA")
+  accountantAccesses AccountantAccess[]
+  createdAt DateTime  @default(now())
+}
+
+model Account {
+  id         String   @id @default(uuid())
+  ownerUser  User?    @relation("AccountOwner", fields: [ownerUserId], references: [id])
+  ownerUserId String?
+  ownerOrg   Organization? @relation("OrgAccounts", fields: [ownerOrgId], references: [id])
+  ownerOrgId String?
+  delegates  User[]   @relation("AccountDelegates")
+  statements Statement[]
+  paymentsFrom Payment[] @relation("PaymentsFrom")
+  paymentsTo   Payment[] @relation("PaymentsTo")
+  poas       POA[]     @relation("AccountPOA")
+  accountantAccesses AccountantAccess[]
+  balance    Float
+  createdAt  DateTime @default(now())
+}
+
+model Statement {
+  id        String   @id @default(uuid())
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  from        Account  @relation("PaymentsFrom", fields: [fromId], references: [id])
+  fromId      String
+  to          Account  @relation("PaymentsTo", fields: [toId], references: [id])
+  toId        String
+  amount      Float
+  initiatedBy User     @relation("InitiatedPayments", fields: [initiatedById], references: [id])
+  initiatedById String
+  status      String
+  createdAt   DateTime @default(now())
+}
+
+model POA {
+  id         String   @id @default(uuid())
+  account    Account  @relation("AccountPOA", fields: [accountId], references: [id])
+  accountId  String
+  delegate   User     @relation("UserPOA", fields: [delegateId], references: [id])
+  delegateId String
+  validFrom  DateTime
+  validTo    DateTime
+  maxAmount  Float?
+  createdAt  DateTime @default(now())
+}
+
+model AccountantAccess {
+  id         String   @id @default(uuid())
+  account    Account  @relation(fields: [accountId], references: [id])
+  accountId  String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  validFrom  DateTime
+  validTo    DateTime
+  createdAt  DateTime @default(now())
+}
